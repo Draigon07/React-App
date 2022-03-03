@@ -1,24 +1,24 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import UserTable from "./Components/UserList";
+import UserCard from "./Components/UserList";
 import Menu from "./Components/Menu";
 import Main from "./Images/Main.svg";
 import ThemeContext from "./Components/Theme";
 import Modal from "./Components/Modal_Contact"
 import Contact from "./Images/Contact.svg";
 import DataBase from "./Components/DbEvents"
-
+import UserTotalTable from "./Components/UserTableTotal"
 
 //Solution useReff instead of useState
 function MainInterface({db,func}){
   const theme = useContext(ThemeContext)
   const [repeated,setRepeaded] = useState(false) 
-  const inputRef = useRef()
+  const inputRef = useRef("")
   const save = new DataBase(db);
   const random = Math.floor(Math.random() * 100);
-  const userData = {id: random, name:"Desconocido", email: "default@hotmail.com", user: "unknow07"};
-
+  const userData = {id: random, name:"", email: "", user: ""};
+  const validation = save.validationDb({inputName:userData.name, inputUser:userData.user})
   const Styles = {
     backgroundColor: theme ? "peru": "#8e1db1"
   }
@@ -50,28 +50,40 @@ function MainInterface({db,func}){
                  <h2>Add new User</h2>
                  <input ref={inputRef} type="text" onChange={
                    (e)=> {
+
                      const inputValue = e.target.value.trim();
-                     userData.name = inputValue;
-                     save.validationDb({input: userData.name}) ? setRepeaded(true): setRepeaded(false);
-                     console.log(userData.name);
+                     userData.name = inputValue
+                     inputValue.length > 0 ? (
+                       validation ? setRepeaded(true): setRepeaded(false),
+                       console.log(userData.name)
+                     ):(
+                        null
+                     )
                    } 
                   }  
                    style={inputStyles} placeholder="Name" />
 
-                 <input type="email" onChange={(e)=> {userData.email = e.target.value } } placeholder="Email"/>
-                 <input type="text" onChange={(e)=> {userData.user = e.target.value } } placeholder="User"/>
+                 <input type="email" onChange={(e)=> {
+                   userData.email = e.target.value;
+                } } placeholder="Email"/>
+                 <input type="text" onChange={(e)=> {
+                  userData.email =  e.target.value;
+                   } } placeholder="User"/>
                  <button style={{backgroundColor: theme? 'rgb(155, 99, 42)': null, border: 'rgb(155, 99, 42)'}} onClick={
                    (e)=>{
                      e.preventDefault()
-                     if(!save.validationDb({input: userData.name})){
+                   
+                     if(!validation) {
                       save.saveOnDb({key: userData.id, val: userData})
                       func({obj: userData})
-                      inputRef.current.value = ""
-                    }else{
-                       console.log(userData.name)
-                      console.error('repeated')
+                      inputRef.current.value = "";
+                     }else if(validation.name == false){
+                       alert("The name")
+                     }else if(validation.user == false){
+                       alert("The user")
+                     }else{
                       setRepeaded(true)
-                     } 
+                     }
                     }}>
                       Add
                   </button>
@@ -81,6 +93,8 @@ function MainInterface({db,func}){
             
   )
 }
+
+
 
 function App() {
   const db = window.localStorage;
@@ -93,25 +107,6 @@ function App() {
   const [currentName, setCurrentName] = useState("")
 
 
-  const Filter = ({arr,input})=>{
-    const filter = arr.filter(el => el.name.toLowerCase().includes(input.toLowerCase()))
-    console.log(filter)
-    return(
-      <>
-      {filter.length > 0 ? (
-        <UserTable arr={filter} />
-      ):(
-        <h1 style={{textAlign: 'center'}}>Not results</h1>
-      )}
-      </>
-    )
-  }
-
-
-  // function UserTotalTable({arr,setName, setOnSearch}){
-    
-  // }
- 
 
 
  const toggleTheme = ()=>{
@@ -140,6 +135,8 @@ function App() {
     }
   };
 
+  console.log(currentName)
+
 
 
   function setUser({obj}){
@@ -166,34 +163,24 @@ function App() {
     getUser()
   },[])
 
+const setName = (e)=>{
+  setCurrentName(e)
+}
 
+const setSearch = (val)=>{
+     setOnSearch(val)
+}
 
   return (
   <ThemeContext.Provider value={darkTheme}>
     <div>
       <Router>
-        <Menu func={toggleTheme} changeModal={toggleModal} />
+        <Menu func={toggleTheme} changeModal={toggleModal}  />
         <Switch>
-          <Route path="/userList">
-            <div className="userTable">
-              <input  type="text" className="search" placeholder="Search User"
-              onChange={(e) =>{
-                  e.target.value.length> 0 ?(
-                   setCurrentName(e.target.value),
-                   setOnSearch(true)
-                ):(
-                  setOnSearch(false)
-
-                )
-              }}
-              />
-              {onSearch ?(
-                <Filter arr={allUsers} input={currentName} />
-                ):(
-                  <UserTable arr={allUsers} />
-              )}
-            </div>
+          <Route path="/userlist">
+          <UserTotalTable allUsersArr={allUsers} currentName={currentName} setName={setName} search={onSearch} setOnSearch={setSearch} />
           </Route>
+       
           <Route path="/">
             <MainInterface db={db} func={setUser}/>
           </Route>
@@ -217,3 +204,5 @@ function App() {
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
+
+

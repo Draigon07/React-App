@@ -20,7 +20,7 @@ export function RandomImg ( { id } ) {
 }
 
 
-function UserTable ( { arr } ) {
+function UserCard ( { arr } ) {
     const theme = useContext(ThemeContext)
     const [showDetails, setShowDetails] = useState(false)
     const [currentObj, setCurrentObj] = useState({})
@@ -91,4 +91,4 @@ function UserTable ( { arr } ) {
     )
 }
 
-export default UserTable
+export default UserCard
