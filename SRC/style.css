@@ -1,0 +1,235 @@
+html {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+header {
+  background-color: #560c6d;
+  color: #fff;
+  margin: 0;
+}
+
+.menu {
+  margin: 0;
+}
+
+.link {
+  color: #fff;
+  text-decoration: none;
+}
+
+header .menu ul {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 3%;
+  margin: 0;
+}
+
+.menu ul li {
+  list-style: none;
+  border: none;
+  padding: 8px;
+  font-size: 19px;
+  color: inherit;
+}
+
+/* User list */
+
+.userTable {
+  display: flex;
+  flex-flow: column wrap;
+  background: #4c0c5f;
+  justify-content: flex-start;
+  font-family: sans-serif;
+}
+
+.userTable div {
+  display: flex;
+  flex-flow: column wrap;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  margin-bottom: 0.3rem;
+  background: white;
+  color: #6c1386;
+  padding: 0.5rem;
+}
+
+.userTable input {
+  width: 100%;
+  text-align: center;
+  margin: 0.1rem auto;
+  padding: 5px;
+}
+
+.userTable div button {
+  width: 100px;
+  text-align: center;
+  margin: 0.5rem 0;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 25px;
+}
+
+.userTable div picture img {
+  border-radius: 50%;
+}
+
+.main-img {
+  margin: 0;
+}
+.main-img img {
+  object-fit: cover;
+  width: 70%;
+}
+
+.userInterface {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  color: rgb(122, 6, 122);
+  font-family: sans-serif;
+  padding: 1rem;
+}
+
+.userInterface picture {
+  height: 300px;
+  margin: 0;
+  text-align: center;
+}
+
+.userInterface p {
+  margin: 1px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.change_theme {
+  padding: 0.3rem;
+  border: 2px solid transparent;
+  box-shadow: 0px 0px 2px;
+  color: white;
+}
+
+/* Modal  */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
+
+.modal {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  flex-flow: column wrap;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ac41d5;
+  z-index: 1000;
+  width: 90%;
+  height: max-content;
+  color: #fff;
+  border-radius: 25px;
+  padding: 0.2rem;
+}
+
+.picture_contact {
+  width: 300px;
+}
+
+.picture_contact img {
+  object-fit: cover;
+  width: 100%;
+  margin: 2rem 0.5rem;
+}
+
+.details_figure {
+  width: 100px;
+  text-align: center;
+  margin-top: 1px;
+}
+
+.details_figure img {
+  object-fit: cover;
+  width: 60%;
+  border-radius: 50%;
+}
+
+.modal h1,
+h2,
+h3 {
+  margin: 1rem 0px;
+}
+
+.x {
+  background: transparent;
+  flex-basis: auto;
+  margin-right: auto;
+  text-align: left;
+  padding: 0.5rem 0.7rem;
+  color: white;
+  border: none;
+  font-size: 2.2rem;
+  font-weight: bold;
+  display: inline;
+  text-shadow: rgba(0, 0, 0, 0.7);
+}
+
+/* form */
+
+.add_user {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: #8e1db1;
+  width: 50%;
+  height: max-content;
+  font-family: sans-serif;
+  gap: 0.5rem;
+  border-radius: 25px;
+  margin-top: 0.9rem;
+}
+
+.add_user h2 {
+  margin: 5px 0;
+  text-align: center;
+}
+
+.add_user input {
+  padding: 0.2rem;
+  margin: 0;
+  border: none;
+}
+
+.add_user input:focus {
+  background: #dcaaf0;
+  border: none;
+  outline: none;
+  padding: 0.4rem;
+}
+
+.add_user button {
+  background-color: #681481;
+  color: #fff;
+  border: 2px solid #ac21d6;
+  padding: 0.5rem 0.7rem;
+}
